@@ -50,14 +50,9 @@
     // Load scores from localStorage and update the scoreboard
     const teams = ['kartini', 'lincoln', 'tagore', 'tolstoy'];
 
-    function loadScores() {
-      teams.forEach(team => {
-        const score = localStorage.getItem('score-' + team);
-        document.getElementById('score-' + team).textContent = score !== null ? score : 0;
-      });
-    }
+    
 
-    window.addEventListener('load', loadScores);
+  
   </script>
 </body>
 </html>
