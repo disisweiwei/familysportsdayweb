@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Login - Scoreboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: url('./img/carousel-1.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+  <div class="overlay w-full max-w-md p-8 rounded-lg shadow-lg text-white">
+    <h1 class="text-3xl font-bold mb-6 text-center">Admin Login</h1>
+    <form id="login-form" class="space-y-6">
+      <div>
+        <label for="username" class="block mb-2 font-semibold">Username</label>
+        <input type="text" id="username" class="w-full p-3 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required />
+      </div>
+      <div>
+        <label for="password" class="block mb-2 font-semibold">Password</label>
+        <input type="password" id="password" class="w-full p-3 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required />
+      </div>
+      <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 py-3 rounded font-bold transition duration-300">
+        Login <i class="fas fa-sign-in-alt ml-2"></i>
+      </button>
+      <p id="error-message" class="mt-4 text-red-400 font-semibold hidden text-center"></p>
+    </form>
+  </div>
+
+  <script>
+    const correctUsername = 'WEIWEI';
+    const correctPassword = 'GMIS2025SCOREBOARD';
+
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (username === correctUsername && password === correctPassword) {
+        localStorage.setItem('isLoggedIn', 'true');
+        window.location.href = 'askhdbgfsdjhfgsidfasdfkasfguihasdfhashd.html';
+      } else {
+        const errorMessage = document.getElementById('error-message');
+        errorMessage.textContent = 'Invalid username or password.';
+        errorMessage.classList.remove('hidden');
+      }
+    });
+
+    // If already logged in, redirect to admin page
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      window.location.href = 'askhdbgfsdjhfgsidfasdfkasfguihasdfhashd.html';
+    }
+  </script>
+</body>
+</html>

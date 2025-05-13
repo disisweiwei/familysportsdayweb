@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scoreboard - Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+  <script>
+    // Redirect to login if not logged in
+    if (localStorage.getItem('isLoggedIn') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
+  <header class="mb-8 w-full max-w-4xl">
+    <h1 class="text-4xl font-bold text-gray-800">Scoreboard Admin</h1>
+    <p class="text-gray-600 mt-2">Add or update team scores</p>
+  </header>
+
+  <main class="w-full max-w-4xl bg-white rounded-lg shadow-lg p-8">
+    <form id="score-form" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="team-input bg-yellow-100 rounded-lg p-6 text-center">
+        <h2 class="text-xl font-semibold text-yellow-800 mb-2">Kartini</h2>
+        <input type="number" min="0" id="input-kartini" class="w-full text-center text-3xl font-extrabold text-blue-900 rounded border border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <div class="team-input bg-green-100 rounded-lg p-6 text-center">
+        <h2 class="text-xl font-semibold text-green-800 mb-2">Lincoln</h2>
+        <input type="number" min="0" id="input-lincoln" class="w-full text-center text-3xl font-extrabold text-green-900 rounded border border-green-300 focus:outline-none focus:ring-2 focus:ring-green-500" />
+      </div>
+      <div class="team-input bg-blue-100 rounded-lg p-6 text-center">
+        <h2 class="text-xl font-semibold text-blue-800 mb-2">Tagore</h2>
+        <input type="number" min="0" id="input-tagore" class="w-full text-center text-3xl font-extrabold text-yellow-900 rounded border border-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-500" />
+      </div>
+      <div class="team-input bg-red-100 rounded-lg p-6 text-center">
+        <h2 class="text-xl font-semibold text-red-800 mb-2">Tolstoy</h2>
+        <input type="number" min="0" id="input-tolstoy" class="w-full text-center text-3xl font-extrabold text-red-900 rounded border border-red-300 focus:outline-none focus:ring-2 focus:ring-red-500" />
+      </div>
+      <div class="col-span-full text-center mt-6">
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded shadow transition duration-300">
+          Save Scores <i class="fas fa-save ml-2"></i>
+        </button>
+      </div>
+    </form>
+    <p id="message" class="mt-4 text-center text-green-600 font-semibold hidden">Scores saved successfully!</p>
+  </main>
+
+  <footer class="mt-12 text-gray-500 text-sm w-full max-w-4xl text-center">
+    &copy; GMIS Scoreboard Admin
+  </footer>
+
+  <script>
+    const teams = ['kartini', 'lincoln', 'tagore', 'tolstoy'];
+
+    function loadScores() {
+      teams.forEach(team => {
+        const score = localStorage.getItem('score-' + team);
+        const input = document.getElementById('input-' + team);
+        input.value = score !== null ? score : 0;
+      });
+    }
+
+    function saveScores(event) {
+      event.preventDefault();
+      teams.forEach(team => {
+        const input = document.getElementById('input-' + team);
+        let value = parseInt(input.value);
+        if (isNaN(value) || value < 0) {
+          value = 0;
+          input.value = 0;
+        }
+        localStorage.setItem('score-' + team, value);
+      });
+      const message = document.getElementById('message');
+      message.classList.remove('hidden');
+      setTimeout(() => {
+        message.classList.add('hidden');
+      }, 3000);
+    }
+
+    window.addEventListener('load', loadScores);
+    document.getElementById('score-form').addEventListener('submit', saveScores);
+  </script>
+</body>
+</html>
